@@ -1,156 +1,148 @@
-# **Calcolo della Similarità di Architetture AADL**
+# **AADL Architecture Similarity Calculation**
 
-## **Descrizione del Progetto**
+## ** Project Description**
 
-Questo progetto implementa un sistema per calcolare la similarità tra architetture software descritte tramite AADL (Architecture Analysis & Design Language). L'obiettivo è trasformare i modelli AADL in grafi e poi calcolare due tipi di similarità tra questi grafi:
+This project implements a system for calculating the **similarity between software architectures** described using **AADL (Architecture Analysis & Design Language)**.  
+The goal is to transform AADL models into **graph structures** and then compute two types of similarity between these graphs:
 
-- **Similarità Strutturale**: Basata sulla struttura dei grafi generati dai modelli AADL.
-- **Similarità Semantica**: Basata sui nomi dei nodi nei grafi, che rappresentano i vari componenti architetturali.
+- **Structural Similarity**: Based on the structure of the graphs generated from the AADL models.  
+- **Semantic Similarity**: Based on the names of the nodes in the graphs, which represent the various architectural components.
 
-Il sistema permette di pesare le due componenti della similarità (strutturale e semantica) in modo che l'utente possa bilanciare il calcolo secondo le proprie necessità.
+The system allows users to **weight the two similarity components** (structural and semantic), enabling customized balance in the final computation.
 
-## **Struttura del Codice**
+---
 
-- **`Main.java`**: È il file principale che esegue il processo di conversione dei modelli da XMI a JSON, e poi calcola le similarità tra i modelli convertiti.
-- **`Similarity.java`**: Contiene i metodi per il calcolo delle similarità strutturale e semantica.
-- **`JsonConverter.java`**: Gestisce la conversione dei file AADL (in formato XMI) in file JSON.
-- **`config.json`**: File di configurazione che definisce i percorsi delle directory di input/output e altri parametri necessari per l'esecuzione del programma.
+## ** Code Structure**
 
-## **Istruzioni per l'Esecuzione**
+- **`Main.java`** – The main file that performs the conversion of models from XMI to JSON and computes similarities between the converted models.  
+- **`Similarity.java`** – Contains methods for computing both structural and semantic similarities.  
+- **`JsonConverter.java`** – Handles the conversion of AADL (XMI format) files into JSON files.  
+- **`config.json`** – Configuration file that defines input/output directories and other execution parameters.
 
-### **Requisiti**
+---
 
-- **Java 8+**
-- **Maven** (per la gestione delle dipendenze)
-- **Apache Log4j** (per il logging)
+## ** How to Run**
 
-### **Configurazione**
+### **Requirements**
+- **Java 8+**  
+- **Maven** (for dependency management)  
+- **Apache Log4j** (for logging)
 
-1. **Modifica il file `config.json`**:
-    - **`xmiFolderPath`**: Percorso della cartella contenente i file XMI (modelli AADL).
-    - **`jsonFolderPath`**: Percorso della cartella dove verranno salvati i file JSON convertiti.
-    - **`structureSimilarityPath`**: Percorso del file CSV dove verrà salvata la similarità strutturale.
-    - **`semanticSimilarityPath`**: Percorso del file CSV dove verrà salvata la similarità semantica.
-    - **`averageSimilarityPath`**: Percorso del file CSV dove verrà salvata la similarità media.
-    - **`weight_of_structural`**: Peso assegnato alla similarità strutturale (tra 0 e 1).
-    - **`weight_of_semantic`**: Peso assegnato alla similarità semantica (tra 0 e 1).
-    - **`test`**: Booleano che determina se eseguire calcoli di test con diversi pesi (`true`) o una singola esecuzione (`false`).
-    - **`datatype`**:: "AADL" or "Ecore".
-    - **`ecoreCSVFilePath`**: "models/input/ecore_data.csv"
+### **Configuration**
 
-2. **Compila ed esegui il programma**:
-    - Apri un terminale nella directory del progetto e usa Maven per compilare il codice:
-      ```bash
-      mvn clean install
-      ```
-    - Esegui il programma:
-      ```bash
-      java -jar target/nome_del_progetto.jar
-      ```
+1. **Edit the `config.json` file:**
+    - **`xmiFolderPath`**: Path to the folder containing XMI (AADL model) files.  
+    - **`jsonFolderPath`**: Path to the folder where converted JSON files will be stored.  
+    - **`structureSimilarityPath`**: Path to the CSV file for structural similarity output.  
+    - **`semanticSimilarityPath`**: Path to the CSV file for semantic similarity output.  
+    - **`averageSimilarityPath`**: Path to the CSV file for average similarity output.  
+    - **`weight_of_structural`**: Weight assigned to structural similarity (between 0 and 1).  
+    - **`weight_of_semantic`**: Weight assigned to semantic similarity (between 0 and 1).  
+    - **`test`**: Boolean flag — set to `true` for test runs with multiple weights or `false` for a single run.  
+    - **`datatype`**: `"AADL"` or `"Ecore"`.  
+    - **`ecoreCSVFilePath`**: `"models/input/ecore_data.csv"`  
 
-### **Output**
+2. **Compile and Run:**
+    ```bash
+    mvn clean install
+    java -jar target/project_name.jar
+    ```
 
-Il programma genererà tre file CSV contenenti le matrici di similarità calcolate:
+---
 
-- **Similarità Strutturale**
-- **Similarità Semantica**
-- **Similarità Media**
+## ** Output**
 
-Ogni matrice riporta le similarità tra ogni coppia di modelli presenti nella cartella specificata.
+The program generates three CSV files containing the calculated similarity matrices:
 
-## **Log e Tempi di Esecuzione**
+- **Structural Similarity**
+- **Semantic Similarity**
+- **Average Similarity**
 
-Il programma registra vari messaggi informativi e di errore tramite Log4j. I tempi di esecuzione di ciascuna fase del processo (conversione e calcolo delle similarità) vengono riportati nel log.
-## **Formato e Struttura di un Grafo**
+Each matrix reports the similarity scores between every pair of models in the specified directory.
 
-### **Introduzione ai Grafi**
+---
 
-Un grafo è una struttura dati che rappresenta un insieme di oggetti e le relazioni tra di essi. Nei grafi, gli oggetti sono rappresentati dai **nodi** e le relazioni tra di essi sono rappresentate dalle **connessioni** o **archi**. I grafi sono utilizzati per modellare sistemi complessi, come reti sociali, reti di computer e architetture software.
+## ** Logging and Execution Time**
 
-### **Componenti di un Grafo**
+The program logs various informational and error messages using **Log4j**.  
+Execution times for each process phase (conversion and similarity computation) are also recorded in the logs.
 
-1. **Nodi (o Vertici)**
-    - I **nodi** rappresentano gli oggetti o le entità nel grafo. Ogni nodo può avere vari attributi, come:
-        - **ID**: Un identificatore unico per il nodo.
-        - **Nome**: Una stringa che descrive il nodo.
-        - **Categoria**: La categoria del nodo (ad esempio, `process`, `thread`, `memory`, `device`).
-        - **Tipo**: Il tipo del nodo, che può essere `software`, `hardware`, `system`, `feature`, o `unknown`.
-    - Nel contesto del nostro progetto, i nodi rappresentano i componenti architetturali descritti nei modelli AADL.
+---
 
-2. **Connessioni (o Archi)**
-    - Le **connessioni** rappresentano le relazioni tra i nodi nel grafo. Ogni connessione può avere un tipo specifico, come:
-        - **father**: Indica una relazione di tipo gerarchico tra un nodo genitore e un nodo figlio.
-        - **feature**: Indica una relazione tra nodi di tipo caratteristica o funzionalità.
-        - **connection**: Rappresenta una connessione generale tra due nodi.
-    - Le connessioni sono dirette, ovvero hanno una direzione che indica la partenza e l'arrivo della relazione.
+## **🕸️ Graph Format and Structure**
 
-### **Esempio di Struttura di un Grafo**
+### **Introduction to Graphs**
 
-Nel nostro progetto, un grafo può essere strutturato come segue:
+A **graph** is a data structure that represents a collection of objects and their relationships.  
+Objects are represented by **nodes (vertices)**, and relationships are represented by **edges (connections)**.  
+Graphs are used to model complex systems, such as social networks, computer networks, and software architectures.
 
-- **Nodi**: Rappresentano componenti architetturali come processi, thread, dispositivi e memoria.
-- **Connessioni**: Rappresentano le relazioni tra questi componenti, ad esempio, un processo che comunica con un dispositivo o un thread che è gestito da un processo.
+### **Graph Components**
 
-### **Costruzione del Grafo**
+1. **Nodes (Vertices)**  
+   - Represent entities or objects in the graph, each with attributes such as:
+     - **ID** – Unique identifier  
+     - **Name** – Descriptive label  
+     - **Category** – e.g., `process`, `thread`, `memory`, `device`  
+     - **Type** – `software`, `hardware`, `system`, `feature`, or `unknown`  
+   - In this project, nodes represent the **architectural components** described in AADL models.
 
-La costruzione del grafo avviene attraverso i seguenti passi:
+2. **Connections (Edges)**  
+   - Represent relationships between nodes. Each connection has a specific type:
+     - **father** – Hierarchical parent-child relationship  
+     - **feature** – Relationship between feature nodes  
+     - **connection** – General connection between nodes  
+   - Connections are **directed**, indicating the start and end of each relationship.
 
-1. **Creazione dei Nodi**: I nodi sono creati a partire dai dati del modello JSON, utilizzando attributi come `name`, `category`, e `type`.
-2. **Aggiunta delle Connessioni**: Le connessioni vengono aggiunte tra i nodi per rappresentare le relazioni definite nei dati del modello. Ogni connessione è caratterizzata da un tipo specifico che determina la natura della relazione.
+### **Graph Structure Example**
 
-### **Visualizzazione del Grafo**
+- **Nodes**: Represent architectural components such as processes, threads, devices, and memory.  
+- **Connections**: Represent relationships between these components (e.g., a process communicating with a device).
 
-Per visualizzare il grafo, utilizziamo strumenti come `JGraphXVisualization` che permettono di generare una rappresentazione grafica del grafo, facilitando l'analisi visiva delle architetture software.
+### **Graph Construction Steps**
 
-## **Visualizzazione dei Grafi**
+1. **Node Creation** – Nodes are created from JSON model data using attributes such as `name`, `category`, and `type`.  
+2. **Connection Addition** – Edges are added between nodes to represent relationships defined in the model data.
 
-Per visualizzare i grafi generati dal sistema, puoi utilizzare la classe `JGraphXVisualization` inclusa nel progetto. Questa classe permette di visualizzare il grafo in una finestra grafica utilizzando la libreria `JGraphX`.
-## Misurazione della Similarità dei Grafi
+### **Graph Visualization**
 
-### Panoramica
+The system uses `JGraphXVisualization` to display the generated graphs, providing a **visual understanding** of the software architecture.
 
-La classe `Similarity`, situata nel pacchetto `org.models.xmi.json.similarityMeasure`, è progettata per calcolare la similarità tra due modelli rappresentati come grafi. Questo viene realizzato confrontando la struttura e il contenuto semantico dei grafi.
+---
 
-### Funzionalità
+## **Graph Visualization**
 
-La classe `Similarity` fornisce diverse funzionalità chiave:
+To visualize the generated graphs, use the class **`JGraphXVisualization`** included in the project.  
+It renders the graph in a graphical window using the **JGraphX** library.
 
-- **Costruzione dei Grafi**: Costruisce strutture di grafo a partire da file JSON che rappresentano diversi modelli. I grafi vengono costruiti utilizzando il metodo `MakeCompleteGraph.buildGraphStructure`.
+---
 
-- **Confronto dei Grafi**: La classe confronta due grafi utilizzando misure di similarità strutturale e semantica. Questo confronto è eseguito dal metodo `calculateComplete`, che restituisce un array contenente:
-   1. Il punteggio di similarità strutturale.
-   2. Il punteggio di similarità semantica.
-   3. La similarità media, calcolata come combinazione ponderata delle due precedenti.
+## ** Graph Similarity Measurement**
 
-- **Sottografo Massimo Comune**: La classe è in grado di identificare il Sottografo Massimo Comune (MCS) tra due grafi, che rappresenta la parte comune massima tra i due modelli in termini di nodi e connessioni.
+### **Overview**
 
-- **Visualizzazione dei Grafi**: Utilizzando la classe `JGraphXVisualization`, è possibile visualizzare i grafi generati e il MCS per facilitare l'analisi visiva delle somiglianze tra i modelli.
+The class **`Similarity`**, located in the package `org.models.xmi.json.similarityMeasure`, is designed to compute the **similarity between two models represented as graphs** by comparing both their **structure** and **semantic content**.
 
-### Esempio d'Uso
+### **Main Features**
 
-Ecco un esempio di come utilizzare la classe `Similarity`:
+- **Graph Construction** – Builds graph structures from JSON model files using `MakeCompleteGraph.buildGraphStructure`.  
+- **Graph Comparison** – Computes structural and semantic similarity using `calculateComplete`, returning:
+  1. Structural similarity score  
+  2. Semantic similarity score  
+  3. Weighted average similarity  
+
+- **Maximum Common Subgraph (MCS)** – Identifies the largest common subgraph shared between two models.  
+- **Graph Visualization** – Uses `JGraphXVisualization` to visualize the graphs and MCS for visual comparison.
+
+---
+
+### **Usage Example**
 
 ```java
 JsonObject json1 = parseJsonFile(new File("path/to/first/model.json"));
 JsonObject json2 = parseJsonFile(new File("path/to/second/model.json"));
 
 double[] similarities = Similarity.calculateComplete(json1, json2, "Model1", "Model2", 0.5, 0.5);
-System.out.println("Similarità Strutturale: " + similarities[0]);
-System.out.println("Similarità Semantica: " + similarities[1]);
-System.out.println("Similarità Media: " + similarities[2]);
-```
-Questo esempio mostra come caricare due modelli JSON, confrontarli e stampare i punteggi di similarità strutturale, semantica e media.
-
-### **Uso di JGraphXVisualization**
-
-Per visualizzare un grafo, utilizza il metodo `VisualizeGraph` fornendo come argomento il grafo da visualizzare e il nome del file per il salvataggio (se necessario). Il grafo sarà visualizzato in una finestra separata, permettendo di esplorare visivamente la struttura dell'architettura.
-
-Esempio:
-```java
-Graph<Node, Connection> myGraph = // ... inizializzazione del grafo
-JGraphXVisualization.VisualizeGraph(myGraph, "output_graph.png");
-```
-
-## **Autore**
-
-- **Davide Soldati**
+System.out.println("Structural Similarity: " + similarities[0]);
+System.out.println("Semantic Similarity: " + similarities[1]);
+System.out.println("Average Similarity: " + similarities[2]);
