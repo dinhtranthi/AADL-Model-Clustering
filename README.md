@@ -1,4 +1,4 @@
-# Model-Clustering
+# AADL-Model-Clustering
 
 This repository contains the folders and files that support the **structural-semantic clustering approach**, which automatically clusters sets of architectures by considering both **structural** and **semantic** information.  
 We built a dataset of **1,202 models** collected from GitHub and applied the proposed clustering approach to discover groups of related models.
