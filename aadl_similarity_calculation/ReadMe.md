@@ -69,7 +69,7 @@ Execution times for each process phase (conversion and similarity computation) a
 
 ---
 
-## **🕸️ Graph Format and Structure**
+## ** Graph Format and Structure**
 
 ### **Introduction to Graphs**
 
