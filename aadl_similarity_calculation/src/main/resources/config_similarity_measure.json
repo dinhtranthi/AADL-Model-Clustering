@@ -1,0 +1,11 @@
+{
+  "xmiFolderPath": "models/output-processing/xmi",
+  "jsonFolderPath": "models/output-processing/json",
+  "compareMode": "average",
+  "weight_of_structural": 0.3,
+  "weight_of_semantic": 0.7,
+  "structureSimilarityPath" : "output/avg_sim_struct.csv",
+  "semanticSimilarityPath" : "output/sim_semantic.csv",
+  "averageSimilarityPath" : "output/average_sim.csv",
+  "test" : false
+}

@@ -1,0 +1,16 @@
+{
+  "input_matrix": "input/average_mode_sim/average_struct_sim_wStruct_0.5.csv",
+  "output_folder": "output",
+  "n_clusters": "auto",
+  "validate_csv": "validate/ground_truth_specific_domain.csv",
+  "contraint_file_path": "constraints.txt",
+  "tolerance_value": 0.001,
+  "no_select_discriminative_pairs": 5,
+  "no_constraints_per_iter": 3,
+  "max_iterations": 100,
+  "adjust_steps": 100,
+  "input_matrix_folder": "input/average_maxSimStruct_specific",
+  "domain": "specific",
+  "linkage_method": "average",
+  "embedding_method": "tfidf"
+}
