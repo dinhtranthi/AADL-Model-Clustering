@@ -1,0 +1,13 @@
+{
+    "xmiFolderPath": "models/output-processing/xmi",
+    "jsonFolderPath": "models/output-processing/json",
+    "compareMode": "average",
+    "weight_of_structural": 0.4,
+    "weight_of_semantic": 0.6,
+    "structureSimilarityPath": "output/max_sim_struct.csv",
+    "semanticSimilarityPath": "output/sim_semantic.csv",
+    "averageSimilarityPath": "output/average_sim.csv",
+    "test": false,
+    "datatype": "AADL", 
+    "ecoreCSVFilePath": "models/input/ecore_data.csv"
+  }
